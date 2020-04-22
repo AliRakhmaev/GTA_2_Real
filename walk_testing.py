@@ -5,9 +5,9 @@ import argparse
 ap = argparse.ArgumentParser()
 ap.add_argument("-fr", "--frame_rate", type=int, default=2,
                 help="How much frames per second to extract")
-ap.add_argument("-in", "--input-directory",
+ap.add_argument("-in", "--input_directory",
                 help="path to directory to expore for videos")
-ap.add_argument("-out", "--output-directory",
+ap.add_argument("-out", "--output_directory",
                 help="path to directory to save the frames")
 ap.add_argument("-dim", "--dimension", type=int, default=256,
                 help="required dimension for frames")
@@ -15,11 +15,11 @@ args = ap.parse_args()
 
 print("Here")
 # Specify the path where to locate the frames
-directory = os.path.abspath('D:\DS project\Datasets\AIR_project\dataset\Test')
+directory = os.path.abspath(args.output_directory)
 print("Here2")
 total_video_files = []
 # Specify the path to the directory with videos. The script will go through all the inner directories and will capture the paths to the videos.
-for dirpath, dirnames, files in os.walk(os.path.abspath('D:\DS project\Datasets\Real_UCF_Dataset\Assault')):
+for dirpath, dirnames, files in os.walk(os.path.abspath(args.input_directory)):
     for file in files:
         total_video_files.append(os.path.join(dirpath,file))
 
