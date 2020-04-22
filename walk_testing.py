@@ -1,8 +1,22 @@
 import os
 import cv2
+import argparse
 
-# Specify the path where to locate the
-directory = os.path.abspath('D:\DS project\Datasets\AIR_project\dataset\gtaToReal\TestB')
+ap = argparse.ArgumentParser()
+ap.add_argument("-fr", "--frame_rate", type=int, default=2,
+                help="How much frames per second to extract")
+ap.add_argument("-in", "--input-directory",
+                help="path to directory to expore for videos")
+ap.add_argument("-out", "--output-directory",
+                help="path to directory to save the frames")
+ap.add_argument("-dim", "--dimension", type=int, default=256,
+                help="required dimension for frames")
+args = ap.parse_args()
+
+print("Here")
+# Specify the path where to locate the frames
+directory = os.path.abspath('D:\DS project\Datasets\AIR_project\dataset\Test')
+print("Here2")
 total_video_files = []
 # Specify the path to the directory with videos. The script will go through all the inner directories and will capture the paths to the videos.
 for dirpath, dirnames, files in os.walk(os.path.abspath('D:\DS project\Datasets\Real_UCF_Dataset\Assault')):
@@ -15,10 +29,10 @@ print("Total videos: " + str(len(total_video_files)))
 # Change the current directory
 # to specified directory
 os.chdir(directory)
-dim = (256, 256)
+dim = (args.dimension, args.dimension)
 image_count = 0
 
-for video_file in total_video_files[-2:]:
+for video_file in total_video_files:
     video_name = video_file.split('\\')[-2] +'_'+ video_file.split('\\')[-1].split('.')[0]
     print(video_name)
     vidcap = cv2.VideoCapture(os.path.abspath(video_file))
@@ -31,7 +45,7 @@ for video_file in total_video_files[-2:]:
             cv2.imwrite("image"+video_name+"number"+str(count)+".jpg", resized)     # save frame as JPG file
         return hasFrames
     sec = 0
-    frameRate = 2 #//it will capture image in each 2 seconds
+    frameRate = args.frame_rate #//it will capture image in each 2 seconds
     count=1
     success = getFrame(sec)
     image_count += 1
@@ -44,8 +58,3 @@ for video_file in total_video_files[-2:]:
         success = getFrame(sec)
     print(video_file + " finished")
 print("Total number of pictures: " + str(image_count))
-
-# for dirpath, dirnames, files in os.walk(os.path.abspath('D:\DS project\Datasets\GTA_Dataset\Assault')):
-#     total_video_files.extend(files)
-# for dirpath, dirnames, files in os.walk(os.path.abspath('D:\DS project\Datasets\GTA_Dataset\Vandalism')):
-#     total_video_files.extend(files)
