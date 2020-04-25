@@ -9,3 +9,6 @@ Typical call may look like: ```python walk_testing.py -fr 2 -dim 256 --input_dir
 #### 4) Dimension (-dim) - the required dimension of the resulting frames. The frames will have the qunadratic dimension. Default value is 256
 ## REQUIREMENTS:
 #### 1) OpenCV library
+
+## Special acknowledgments
+To mister Chris Fotache for his knowledge, advices and great articles. Link: https://towardsdatascience.com/object-detection-and-tracking-in-pytorch-b3cf1a696a98
